@@ -64,5 +64,8 @@ public class Turismo {
         return matricula;
     }
     
+    public String toString(){
+        return String.format("Marca: %s Modelo: %s Cilindrada: %d Matrícula: %s", marca, modelo, cilindrada, matricula);
+    }
     
 }
