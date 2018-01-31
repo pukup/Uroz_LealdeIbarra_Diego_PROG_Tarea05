@@ -19,5 +19,11 @@ public class Alquiler {
     private final SimpleDateFormat FORMATO_FECHA = new SimpleDateFormat("dd/MM/yyyy HH:mm");
     private final int MS_DIA = 1000*60*60*24;
     private final double PRECIO_DIA;
+    
+    public Alquiler (Cliente cliente, Turismo turismo){
+        
+        fecha = new Date();
+        dias = 0;
+    }
 
 }
