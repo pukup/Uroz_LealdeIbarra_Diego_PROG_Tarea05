@@ -9,7 +9,7 @@ package tarea05;
  *
  * @author lol
  */
-public class ExcepcionAlquilerVehiculos extends Exception {
+public class ExcepcionAlquilerVehiculos extends RuntimeException {
     
     private static final long serialVersionUID = 1L;
     
