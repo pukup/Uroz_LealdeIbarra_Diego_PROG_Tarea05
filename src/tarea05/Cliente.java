@@ -44,4 +44,19 @@ public class Cliente {
         return matcher.matches();
     }
     
+    private String getNombre(){
+        return this.nombre;
+    }
+
+    private String getDireccion() {
+        return this.direccion;
+    }
+    
+    private String getLocalidad() {
+        return this.localidad;
+    }
+        
+    private String getCodigoPostal() {
+        return this.codigoPostal;
+    }
 }
