@@ -47,5 +47,22 @@ public class Turismo {
         Matcher matcher = regex.matcher(matricula);
         return matcher.matches();
     }
+
+    public String getMarca() {
+        return marca;
+    }
+
+    public String getModelo() {
+        return modelo;
+    }
+
+    public int getCilindrada() {
+        return cilindrada;
+    }
+
+    public String getMatricula() {
+        return matricula;
+    }
+    
     
 }
