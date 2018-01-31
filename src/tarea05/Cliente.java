@@ -59,4 +59,9 @@ public class Cliente {
     private String getCodigoPostal() {
         return this.codigoPostal;
     }
+    
+    public String toString(){
+        return String.format("Nombre: %s Dirección: %s Localidad: %s Código postal: %s",nombre, direccion, localidad, codigoPostal);
+    }
+
 }
