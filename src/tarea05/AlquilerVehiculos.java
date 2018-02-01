@@ -62,5 +62,16 @@ public class AlquilerVehiculos {
             }
         }
     }
+    
+    public void delCliente(Cliente cliente){
+        for (Cliente cliente1 : clientes) {
+            if (cliente.getNombre().equals(cliente1.getNombre())){
+                cliente1 = null;
+            }
+            else{
+                System.out.println("No se ha encontrado el nombre del cliente.");
+            }
+        }
+    }
 
 }
