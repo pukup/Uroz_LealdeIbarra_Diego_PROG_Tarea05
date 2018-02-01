@@ -39,8 +39,8 @@ public class AlquilerVehiculos {
     public Cliente getCliente(Cliente cliente) {
 
         int encontrado = 0;
-        for (Cliente cliente1 : clientes) {
-            if (cliente.getNombre().equals(cliente1.getNombre())) {
+        for (Cliente clienteArray : clientes) {
+            if (cliente.getNombre().equals(clienteArray.getNombre())) {
                 encontrado = 1;
             }
         }
@@ -54,19 +54,19 @@ public class AlquilerVehiculos {
 
     public void addCliente(Cliente cliente) {
 
-        for (Cliente cliente1 : clientes) {
-            if (cliente1 == null) {
-                cliente1 = cliente;
+        for (Cliente clienteArray : clientes) {
+            if (clienteArray == null) {
+                clienteArray = cliente;
             } else {
-                throw new ExcepcionAlquilerVehiculos("No hay espacio disponible");
+                throw new ExcepcionAlquilerVehiculos("No hay espacio disponible.");
             }
         }
     }
 
     public void delCliente(Cliente cliente) {
-        for (Cliente cliente1 : clientes) {
-            if (cliente.getNombre().equals(cliente1.getNombre())) {
-                cliente1 = null;
+        for (Cliente clienteArray : clientes) {
+            if (cliente.getNombre().equals(clienteArray.getNombre())) {
+                clienteArray = null;
             } else {
                 System.out.println("No se ha encontrado el nombre del cliente.");
             }
@@ -75,8 +75,8 @@ public class AlquilerVehiculos {
 
     public Turismo getTurismo(Turismo turismo) {
         int encontrado = 0;
-        for (Turismo turismo1 : turismos) {
-            if (turismo.getMatricula().equals(turismo1.getMatricula())) {
+        for (Turismo turismoArray : turismos) {
+            if (turismo.getMatricula().equals(turismoArray.getMatricula())) {
                 encontrado = 1;
             }
         }
@@ -84,6 +84,16 @@ public class AlquilerVehiculos {
             return turismo;
         } else {
             return null;
+        }
+    }
+
+    public void addTurismo(Turismo turismo) {
+        for (Turismo turismoArray : turismos) {
+            if (turismoArray == null) {
+                turismoArray = turismo;
+            } else {
+                throw new ExcepcionAlquilerVehiculos("No hay espacio disponible.");
+            }
         }
     }
 
