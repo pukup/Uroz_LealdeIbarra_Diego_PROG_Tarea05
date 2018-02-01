@@ -36,5 +36,17 @@ public class AlquilerVehiculos {
         return alquileres;
     }
     
-    
-}
+    public Cliente getCliente(Cliente cliente){
+        
+        int encontrado=0;
+        for (Cliente cliente1 : clientes) 
+            if (cliente.getNombre().equals(cliente1.getNombre()))
+                encontrado=1;
+        if (encontrado == 1)
+            return cliente;
+        else
+            return null;
+            
+        }
+ 
+    }
