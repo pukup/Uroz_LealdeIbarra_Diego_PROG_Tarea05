@@ -37,7 +37,7 @@ public class Alquiler {
         return dias;
     }
     
-    public double getPrecio(){
+    public double getPrecioDia(){
         return PRECIO_DIA;
     }
     
@@ -49,18 +49,25 @@ public class Alquiler {
         return cliente;
     }
     
-    public void close(Alquiler alquiler){
-        dias = difDias(alquiler) + 1;
+    public void close(){
+        if (dias==0)
+            dias = difDias() + 1;
+        else
+            throw new ExcepcionAlquilerVehiculos("El alquiler está cerrado");
         
     }
     
-    public double getPrecio(Alquiler alquiler){
-        return alquiler.getDias() * PRECIO_DIA + alquiler.getTurismo().getCilindrada() / 100;
+    public double getPrecio(){
+        return getDias() * PRECIO_DIA + getTurismo().getCilindrada() / 100;
     }
     
-    public int difDias(Alquiler alquiler){
-        long tiempoAlquiler = new Date().getTime() - alquiler.getDate().getTime();
+    public int difDias(){
+        long tiempoAlquiler = new Date().getTime() - getDate().getTime();
         long diasAlquiler = tiempoAlquiler / MS_DIA;            
         return (int)diasAlquiler;
+    }
+    
+    public String toString(){
+        return String.format("Fecha inicio: %s Días: %s%n Turismo: %s%n Cliente: %s" , fecha, dias, turismo,cliente);
     }
 }
