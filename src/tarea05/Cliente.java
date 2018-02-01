@@ -16,7 +16,7 @@ public class Cliente {
     
     private String nombre, direccion, localidad, codigoPostal;
     private int identificador;
-    private static int numClientes;
+    private static int numClientes = 0;
       
     public Cliente(String nombre, String direccion, String localidad, String codigoPostal){
         
@@ -27,7 +27,8 @@ public class Cliente {
             this.codigoPostal=codigoPostal;
         else
             throw new ExcepcionAlquilerVehiculos("Código postal incorrecto.");
-        
+        numClientes ++;
+        identificador = numClientes;
     }
     
     public Cliente(Cliente clienteCopia){

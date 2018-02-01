@@ -16,7 +16,6 @@ public class Turismo {
     
     private String matricula, marca, modelo;
     private int cilindrada;
-    private static int identificador;
     
     public Turismo(String matricula, String marca, String modelo, int cilindrada){
                 
@@ -30,7 +29,6 @@ public class Turismo {
             this.matricula=matricula;
         else
             throw new ExcepcionAlquilerVehiculos("Matrícula incorrecta.");
-        identificador ++;
         
     }
     
