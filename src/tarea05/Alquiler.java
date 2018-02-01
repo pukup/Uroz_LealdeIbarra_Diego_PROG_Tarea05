@@ -18,7 +18,7 @@ public class Alquiler {
     private int dias;
     private final SimpleDateFormat FORMATO_FECHA = new SimpleDateFormat("dd/MM/yyyy HH:mm");
     private final int MS_DIA = 1000*60*60*24;
-    private final double PRECIO_DIA = 10;
+    private final double PRECIO_DIA = 30;
     private Turismo turismo;
     private Cliente cliente;
     
@@ -52,6 +52,10 @@ public class Alquiler {
     public void close(Alquiler alquiler){
         dias = difDias(alquiler) + 1;
         
+    }
+    
+    public double getPrecio(Alquiler alquiler){
+        return alquiler.getDias() * PRECIO_DIA + alquiler.getTurismo().getCilindrada() / 100;
     }
     
     public int difDias(Alquiler alquiler){
