@@ -117,4 +117,7 @@ public class AlquilerVehiculos {
         }
     }
 
+    public void closeAlquiler(Alquiler alquiler){
+        alquiler.close();
+    }
 }

@@ -13,56 +13,57 @@ import java.util.regex.Pattern;
  * @author lol
  */
 public class Cliente {
-    
+
     private String nombre, direccion, localidad, codigoPostal;
     private int identificador;
     private static int numClientes = 0;
-      
-    public Cliente(String nombre, String direccion, String localidad, String codigoPostal){
-        
-        this.nombre=nombre;
-        this.direccion=direccion;
-        this.localidad=localidad;
-        if (compruebaCodigoPostal(codigoPostal))
-            this.codigoPostal=codigoPostal;
-        else
+
+    public Cliente(String nombre, String direccion, String localidad, String codigoPostal) {
+
+        this.nombre = nombre;
+        this.direccion = direccion;
+        this.localidad = localidad;
+        if (compruebaCodigoPostal(codigoPostal)) {
+            this.codigoPostal = codigoPostal;
+        } else {
             throw new ExcepcionAlquilerVehiculos("Código postal incorrecto.");
-        numClientes ++;
+        }
+        numClientes++;
         identificador = numClientes;
     }
-    
-    public Cliente(Cliente clienteCopia){
-        nombre=clienteCopia.getNombre();
-        direccion=clienteCopia.getDireccion();
-        localidad=clienteCopia.getLocalidad();
-        codigoPostal=clienteCopia.getCodigoPostal();
+
+    public Cliente(Cliente clienteCopia) {
+        nombre = clienteCopia.getNombre();
+        direccion = clienteCopia.getDireccion();
+        localidad = clienteCopia.getLocalidad();
+        codigoPostal = clienteCopia.getCodigoPostal();
     }
 
-    private boolean compruebaCodigoPostal(String codigoPostal){
+    private boolean compruebaCodigoPostal(String codigoPostal) {
 
         Pattern regex = Pattern.compile("[0-9]{5}");
         Matcher matcher = regex.matcher(codigoPostal);
         return matcher.matches();
     }
-    
-    public String getNombre(){
+
+    public String getNombre() {
         return this.nombre;
     }
 
     public String getDireccion() {
         return this.direccion;
     }
-    
+
     public String getLocalidad() {
         return this.localidad;
     }
-        
+
     public String getCodigoPostal() {
         return this.codigoPostal;
     }
-    
-    public String toString(){
-        return String.format("Nombre: %s Dirección: %s Localidad: %s Código postal: %s",nombre, direccion, localidad, codigoPostal);
+
+    public String toString() {
+        return String.format("Nombre: %s Dirección: %s Localidad: %s Código postal: %s", nombre, direccion, localidad, codigoPostal);
     }
 
 }
