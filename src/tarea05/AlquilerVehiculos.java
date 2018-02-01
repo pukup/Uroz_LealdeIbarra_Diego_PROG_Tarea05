@@ -68,7 +68,7 @@ public class AlquilerVehiculos {
             if (cliente.getNombre().equals(clienteArray.getNombre())) {
                 clienteArray = null;
             } else {
-                System.out.println("No se ha encontrado el nombre del cliente.");
+                throw new ExcepcionAlquilerVehiculos("No se ha encontrado el cliente.");
             }
         }
     }
@@ -97,4 +97,13 @@ public class AlquilerVehiculos {
         }
     }
 
+    public void delTurismo(Turismo turismo) {
+        for (Turismo turismoArray : turismos) {
+            if (turismo.getMatricula().equals(turismoArray.getMatricula())) {
+                turismoArray = null;
+            }else{
+                throw new ExcepcionAlquilerVehiculos("No se ha encontrado el turismo.");
+            }
+        }
+    }
 }
