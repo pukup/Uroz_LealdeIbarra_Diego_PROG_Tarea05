@@ -101,9 +101,20 @@ public class AlquilerVehiculos {
         for (Turismo turismoArray : turismos) {
             if (turismo.getMatricula().equals(turismoArray.getMatricula())) {
                 turismoArray = null;
-            }else{
+            } else {
                 throw new ExcepcionAlquilerVehiculos("No se ha encontrado el turismo.");
             }
         }
     }
+
+    public void openAlquiler(Alquiler alquiler) {
+        for (Alquiler alquilerArray : alquileres) {
+            if (alquilerArray == null) {
+                alquilerArray = alquiler;
+            } else {
+                throw new ExcepcionAlquilerVehiculos("No hay espacio disponible.");
+            }
+        }
+    }
+
 }
