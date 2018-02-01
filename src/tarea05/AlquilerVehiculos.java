@@ -62,15 +62,28 @@ public class AlquilerVehiculos {
             }
         }
     }
-    
-    public void delCliente(Cliente cliente){
+
+    public void delCliente(Cliente cliente) {
         for (Cliente cliente1 : clientes) {
-            if (cliente.getNombre().equals(cliente1.getNombre())){
+            if (cliente.getNombre().equals(cliente1.getNombre())) {
                 cliente1 = null;
-            }
-            else{
+            } else {
                 System.out.println("No se ha encontrado el nombre del cliente.");
             }
+        }
+    }
+
+    public Turismo getTurismo(Turismo turismo) {
+        int encontrado = 0;
+        for (Turismo turismo1 : turismos) {
+            if (turismo.getMatricula().equals(turismo1.getMatricula())) {
+                encontrado = 1;
+            }
+        }
+        if (encontrado == 1) {
+            return turismo;
+        } else {
+            return null;
         }
     }
 
