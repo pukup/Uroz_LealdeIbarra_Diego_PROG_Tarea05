@@ -11,6 +11,7 @@ package tarea05;
  */
 public class AlquilerVehiculos {
 
+//Atributos    
     private final int MAX_TURISMOS = 10;
     private final int MAX_CLIENTES = 50;
     private final int MAX_ALQUILERES = 10;
@@ -18,34 +19,50 @@ public class AlquilerVehiculos {
     private Cliente[] clientes;
     private Alquiler[] alquileres;
 
+//Constructor    
     public AlquilerVehiculos() {
         turismos = new Turismo[MAX_TURISMOS];
         clientes = new Cliente[MAX_CLIENTES];
         alquileres = new Alquiler[MAX_ALQUILERES];
     }
+//Constructor copia
 
-    public Turismo[] getTurismos() {
-        return turismos;
+    public AlquilerVehiculos(AlquilerVehiculos alquilerVehiculosCopia) {
+        turismos = alquilerVehiculosCopia.getTurismos();
+        clientes = alquilerVehiculosCopia.getClientes();
+        alquileres = alquilerVehiculosCopia.getAlquileres();
     }
 
-    public Cliente[] getCLientes() {
-        return clientes;
+//Métodos get        
+    public Turismo[] getTurismos() {
+        Turismo[] turismosCopia = turismos.clone();
+        return turismosCopia;
+    }
+
+    public Cliente[] getClientes() {
+        Cliente[] clientesCopia = clientes.clone();
+        return clientesCopia;
     }
 
     public Alquiler[] getAlquileres() {
-        return alquileres;
+        Alquiler[] alquileresCopia = alquileres.clone();
+        return alquileresCopia;
     }
 
-    public Cliente getCliente(Cliente cliente) {
-
-        int encontrado = 0;
-        for (Cliente clienteArray : clientes) {
-            if (cliente.getNombre().equals(clienteArray.getNombre())) {
-                encontrado = 1;
+//Métodos cliente    
+    public Cliente getCliente(String dni) {
+        
+        int contador = 0;
+        boolean buscador = false;
+        while (contador < clientes.length && !buscador) {
+            if (clientes[contador] != null && clientes[contador].getDni().equals(dni)) {
+                buscador = true;
+            } else {
+                contador++;
             }
         }
-        if (encontrado == 1) {
-            return cliente;
+        if (buscador) {
+            return clientes[contador];
         } else {
             return null;
         }
@@ -53,71 +70,136 @@ public class AlquilerVehiculos {
     }
 
     public void addCliente(Cliente cliente) {
-
-        for (Cliente clienteArray : clientes) {
-            if (clienteArray == null) {
-                clienteArray = cliente;
+        int contador = 0;
+        boolean buscador = false;
+        while (contador < clientes.length && !buscador) {
+            if (clientes[contador] == null) {
+                buscador = true;
             } else {
-                throw new ExcepcionAlquilerVehiculos("No hay espacio disponible.");
+                contador++;
             }
+        }
+        if (buscador) {
+            clientes[contador] = cliente;
+        } else {
+            throw new ExcepcionAlquilerVehiculos("No hay espacio disponible.");
         }
     }
 
-    public void delCliente(Cliente cliente) {
-        for (Cliente clienteArray : clientes) {
-            if (cliente.getNombre().equals(clienteArray.getNombre())) {
-                clienteArray = null;
+    public void delCliente(String dni) {
+        int contador = 0;
+        boolean buscador = false;
+        while (contador < clientes.length && !buscador) {
+            if (clientes[contador] != null && clientes[contador].getDni().equals(dni)) {
+                buscador = true;
             } else {
-                throw new ExcepcionAlquilerVehiculos("No se ha encontrado el cliente.");
+                contador++;
             }
+        }
+        if (buscador) {
+            for (int i = contador; i < clientes.length - 1; i++) {
+                clientes[i] = clientes[i + 1];
+            }
+            clientes[clientes.length - 1] = null;
+        } else {
+            throw new ExcepcionAlquilerVehiculos("Cliente no encontrado.");
         }
     }
 
-    public Turismo getTurismo(Turismo turismo) {
-        int encontrado = 0;
-        for (Turismo turismoArray : turismos) {
-            if (turismo.getMatricula().equals(turismoArray.getMatricula())) {
-                encontrado = 1;
+//Métodos turismo    
+    public Turismo getTurismo(String matricula) {
+        int contador = 0;
+        boolean buscador = false;
+        while (contador < turismos.length && !buscador) {
+            if (turismos[contador] != null && turismos[contador].getMatricula().equals(matricula)) {
+                buscador = true;
+            } else {
+                contador++;
             }
         }
-        if (encontrado == 1) {
-            return turismo;
+        if (buscador) {
+            return turismos[contador];
         } else {
             return null;
         }
+
     }
 
     public void addTurismo(Turismo turismo) {
-        for (Turismo turismoArray : turismos) {
-            if (turismoArray == null) {
-                turismoArray = turismo;
+        int contador = 0;
+        boolean buscador = false;
+        while (contador < turismos.length && !buscador) {
+            if (turismos[contador] == null) {
+                buscador = true;
             } else {
-                throw new ExcepcionAlquilerVehiculos("No hay espacio disponible.");
+                contador++;
             }
+            turismo.setDisponible(true);
+        }
+        if (buscador) {
+            turismos[contador] = turismo;
+        } else {
+            throw new ExcepcionAlquilerVehiculos("No hay espacio disponible.");
         }
     }
 
-    public void delTurismo(Turismo turismo) {
-        for (Turismo turismoArray : turismos) {
-            if (turismo.getMatricula().equals(turismoArray.getMatricula())) {
-                turismoArray = null;
+    public void delTurismo(String matricula) {
+        int contador = 0;
+        boolean buscador = false;
+        while (contador < turismos.length && !buscador) {
+            if (turismos[contador] != null && turismos[contador].getMatricula().equals(matricula)) {
+                buscador = true;
             } else {
-                throw new ExcepcionAlquilerVehiculos("No se ha encontrado el turismo.");
+                contador++;
             }
+        }
+        if (buscador) {
+            for (int i = contador; i < turismos.length - 1; i++) {
+                turismos[i] = turismos[i + 1];
+            }
+            turismos[turismos.length - 1] = null;
+        } else {
+            throw new ExcepcionAlquilerVehiculos("Vehículo no encontrado");
         }
     }
 
-    public void openAlquiler(Alquiler alquiler) {
-        for (Alquiler alquilerArray : alquileres) {
-            if (alquilerArray == null) {
-                alquilerArray = alquiler;
+//Metodos alquiler    
+    public void openAlquiler(Cliente cliente, Turismo turismo) {
+        int contador = 0;
+        boolean buscador = false;
+        while (contador < alquileres.length && !buscador) {
+            if (alquileres[contador] == null) {
+                buscador = true;
             } else {
-                throw new ExcepcionAlquilerVehiculos("No hay espacio disponible.");
+                contador++;
             }
         }
+        if (buscador) {
+            alquileres[contador] = new Alquiler(cliente, turismo);
+            turismo.setDisponible(false);
+        } else {
+            throw new ExcepcionAlquilerVehiculos("No hay espacio disponible.");
+        }
+
     }
 
-    public void closeAlquiler(Alquiler alquiler){
-        alquiler.close();
+    public void closeAlquiler(Cliente cliente, Turismo turismo) {
+        int contador = 0;
+        boolean buscador = false;
+        while (contador < alquileres.length && !buscador) {
+            if (alquileres[contador] != null && alquileres[contador].getTurismo().getMatricula().equals(turismo.getMatricula())) {
+                buscador = true;
+            } else {
+                contador++;
+            }
+
+        }
+        if (buscador) {
+            alquileres[contador].close();
+            turismo.setDisponible(true);
+        } else {
+            throw new ExcepcionAlquilerVehiculos("Alquiler no encontrado.");
+        }
+
     }
 }

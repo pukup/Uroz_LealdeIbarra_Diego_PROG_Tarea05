@@ -14,6 +14,7 @@ import java.util.Date;
  */
 public class Alquiler {
 
+//Atributos    
     private Date fecha;
     private int dias;
     private final SimpleDateFormat FORMATO_FECHA = new SimpleDateFormat("dd/MM/yyyy HH:mm");
@@ -22,53 +23,80 @@ public class Alquiler {
     private Turismo turismo;
     private Cliente cliente;
 
+//Constructor    
     public Alquiler(Cliente cliente, Turismo turismo) {
-        this.cliente = cliente;
-        this.turismo = turismo;
-        fecha = new Date();
-        dias = 0;
+        if (turismo.getDisponible()) {
+            this.cliente = cliente;
+            this.turismo = turismo;
+            fecha = new Date();
+            dias = 0;
+            turismo.setDisponible(false);
+        } else {
+            throw new ExcepcionAlquilerVehiculos("Vehículo no disponible.");
+        }
+    }
+    
+//Constructor copia
+    public Alquiler(Alquiler alquilerCopia) {
+        turismo = alquilerCopia.getTurismo();
+        cliente = alquilerCopia.getCliente();
+        dias = alquilerCopia.getDias();
+        fecha = alquilerCopia.getDate();
     }
 
+//Métodos get    
     public Date getDate() {
         return fecha;
     }
 
     public int getDias() {
-        return dias;
+        return difDias();
+    }
+
+    public Turismo getTurismo() {
+        return new Turismo(turismo);
     }
 
     public double getPrecioDia() {
         return PRECIO_DIA;
     }
 
-    public Turismo getTurismo() {
-        return turismo;
-    }
-
     public Cliente getCliente() {
-        return cliente;
+        return new Cliente(cliente);
     }
 
+    public double getPrecio() {
+        return PRECIO_DIA * difDias() + turismo.getCilindrada() / 100;
+    }
+
+    public double getPrecio(Turismo turismo, int dias) {
+        return PRECIO_DIA * dias + turismo.getCilindrada() / 100;
+    }
+
+//Método toString    
+    public String toString() {
+        return String.format("ALQUILER %n Fecha inicio: %s%n Días: %d%n Turismo: %s%n Cliente: %s%n Precio: %f€%n", fecha.toString(), getDias(), turismo.getMatricula(), cliente.getDni(), getPrecio());
+    }
+
+//Método cerrar alquiler   
     public void close() {
         if (dias == 0) {
-            dias = difDias() + 1;
+            dias = difDias();
         } else {
             throw new ExcepcionAlquilerVehiculos("El alquiler está cerrado");
+        }
+    }
+
+//Método diferencia de días    
+    public int difDias() {
+        long tiempoAlquiler = new Date().getTime() - getDate().getTime();
+        long diasAlquiler = tiempoAlquiler / MS_DIA;
+        if (diasAlquiler < 1) {
+            return 1;
+        } else {
+            return (int) diasAlquiler;
         }
 
     }
 
-    public double getPrecio() {
-        return getDias() * PRECIO_DIA + getTurismo().getCilindrada() / 100;
-    }
-
-    public int difDias() {
-        long tiempoAlquiler = new Date().getTime() - getDate().getTime();
-        long diasAlquiler = tiempoAlquiler / MS_DIA;
-        return (int) diasAlquiler;
-    }
-
-    public String toString() {
-        return String.format("Fecha inicio: %s Días: %s%n Turismo: %s%n Cliente: %s", fecha, dias, turismo, cliente);
-    }
 }

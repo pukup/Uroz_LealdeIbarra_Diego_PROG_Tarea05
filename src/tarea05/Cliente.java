@@ -14,12 +14,13 @@ import java.util.regex.Pattern;
  */
 public class Cliente {
 
-    private String nombre, direccion, localidad, codigoPostal;
+// Atributos para la clase
+    private String nombre, direccion, localidad, codigoPostal, dni;
     private int identificador;
-    private static int numClientes = 0;
+    private static int ultimoIdentificador = 0;
 
-    public Cliente(String nombre, String direccion, String localidad, String codigoPostal) {
-
+//Constructor
+    public Cliente(String nombre, String direccion, String localidad, String codigoPostal, String dni) {
         this.nombre = nombre;
         this.direccion = direccion;
         this.localidad = localidad;
@@ -28,42 +29,70 @@ public class Cliente {
         } else {
             throw new ExcepcionAlquilerVehiculos("Código postal incorrecto.");
         }
-        numClientes++;
-        identificador = numClientes;
+        if (compruebaDni(dni)) {
+            this.dni = dni;
+        } else {
+            throw new ExcepcionAlquilerVehiculos("DNI incorrecto.");
+        }
+        ultimoIdentificador++;
+        identificador = ultimoIdentificador;
     }
 
+//Constructor copia    
     public Cliente(Cliente clienteCopia) {
         nombre = clienteCopia.getNombre();
         direccion = clienteCopia.getDireccion();
         localidad = clienteCopia.getLocalidad();
         codigoPostal = clienteCopia.getCodigoPostal();
+        dni = clienteCopia.getDni();
+        identificador = clienteCopia.getIdentificador();
     }
 
-    private boolean compruebaCodigoPostal(String codigoPostal) {
+//Métodos get   
+    public String getNombre() {
+        return nombre;
+    }
 
+    public String getDireccion() {
+        return direccion;
+    }
+
+    public String getLocalidad() {
+        return localidad;
+    }
+
+    public String getCodigoPostal() {
+        return codigoPostal;
+    }
+
+    public String getDni() {
+        return dni;
+    }
+
+    public int getIdentificador() {
+        return identificador;
+    }
+
+    public int getUltimoIdentificador() {
+        return ultimoIdentificador;
+    }
+
+//Método toString    
+    public String toString() {
+        return String.format("CLIENTE %n Nombre: %s%n Dirección: %s%n Localidad: %s%n Código postal: %s%n Dni: %s%n Identificador: %s%n", nombre, direccion, localidad, codigoPostal, dni, identificador);
+    }
+
+//Métodos de validación    
+    private boolean compruebaCodigoPostal(String codigoPostal) {
         Pattern regex = Pattern.compile("[0-9]{5}");
         Matcher matcher = regex.matcher(codigoPostal);
         return matcher.matches();
     }
 
-    public String getNombre() {
-        return this.nombre;
-    }
-
-    public String getDireccion() {
-        return this.direccion;
-    }
-
-    public String getLocalidad() {
-        return this.localidad;
-    }
-
-    public String getCodigoPostal() {
-        return this.codigoPostal;
-    }
-
-    public String toString() {
-        return String.format("Nombre: %s Dirección: %s Localidad: %s Código postal: %s", nombre, direccion, localidad, codigoPostal);
+    private boolean compruebaDni(String dni) {
+        Pattern regex = Pattern.compile("[0-9]{8}[a-z]{1}");
+        Matcher matcher = regex.matcher(dni);
+        return matcher.matches();
     }
 
 }
